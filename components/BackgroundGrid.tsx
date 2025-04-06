@@ -7,7 +7,7 @@ export default function BackgroundGrid() {
   const boxes = Array.from({ length: rows * cols }, (_, i) => <Box key={i} />);
 
   return (
-    <div className="absolute inset-0 z-0 grid grid-cols-12 gap-4 p-4 pointer-events-none">
+    <div className="absolute hidden lg:grid inset-0 z-0 grid-cols-12 gap-4 p-4 pointer-events-none">
       {boxes}
     </div>
   );

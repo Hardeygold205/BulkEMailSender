@@ -32,10 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="relative min-h-screen w-full overflow-hidden">
-          {/* Background boxes */}
           <BackgroundGrid />
-
-          {/* Foreground content */}
           <div className="relative z-10">
             <Navbar />
             <div className="mx-auto max-w-8xl">{children}</div>

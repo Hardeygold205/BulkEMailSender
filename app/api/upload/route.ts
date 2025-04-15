@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     const replyTo = formData.get("replyTo") as string;
     const imageFile = formData.get("image") as File | null;
 
-    // Validation
     if (!file)
       return NextResponse.json(
         { error: "No CSV file uploaded" },
@@ -52,7 +51,6 @@ export async function POST(req: Request) {
         { status: 400 }
       );
 
-    // Parse CSV
     const buffer = Buffer.from(await file.arrayBuffer());
     const { data } = Papa.parse(buffer.toString(), {
       header: true,
@@ -87,7 +85,6 @@ export async function POST(req: Request) {
       ];
     }
 
-    // Configure transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       host: "smtp.gmail.com",
@@ -104,7 +101,6 @@ export async function POST(req: Request) {
       socketTimeout: 120000,
     });
 
-    // Verify connection
     try {
       await transporter.verify();
     } catch (error) {
@@ -118,7 +114,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Process emails in batches
     const results = [];
     for (let i = 0; i < recipients.length; i += BATCH_SIZE) {
       const batch = recipients.slice(i, i + BATCH_SIZE);
@@ -170,7 +165,6 @@ export async function POST(req: Request) {
       }
     }
 
-    // Compile results
     const successful = results.filter(
       (r) => r.status === "fulfilled" && r.value.status === "success"
     );

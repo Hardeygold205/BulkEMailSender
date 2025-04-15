@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackServerApp } from "../stack";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/constants/Navbar";
@@ -30,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}><StackProvider app={stackServerApp}><StackTheme>
         <div className="relative min-h-screen w-full overflow-hidden">
           <BackgroundGrid />
           <div className="relative z-10">
@@ -38,7 +40,7 @@ export default function RootLayout({
             <div className="mx-auto max-w-8xl">{children}</div>
           </div>
         </div>
-      </body>
+      </StackTheme></StackProvider></body>
     </html>
   );
 }

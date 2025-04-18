@@ -56,8 +56,9 @@ export default function EmailSender() {
       } else {
         throw new Error(data.error || "Failed to send emails");
       }
-    } catch (error: any) {
-      alert(`Error: ${error.message}`);
+    } catch (error) {
+      console.error("Error sending emails:", error);
+      alert("An error occurred while sending emails. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -69,9 +70,7 @@ export default function EmailSender() {
         <h1 className="text-2xl font-bold mb-6 text-center">
           Bulk Email Sender
         </h1>
-
         <div className="space-y-4">
-          {/* CSV Upload */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">CSV File*</span>
@@ -87,8 +86,6 @@ export default function EmailSender() {
               CSV should contain email and optional name columns
             </p>
           </div>
-
-          {/* Sender Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
@@ -118,8 +115,6 @@ export default function EmailSender() {
               />
             </div>
           </div>
-
-          {/* Reply To */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Reply-To Email</span>
@@ -133,8 +128,6 @@ export default function EmailSender() {
               disabled={isLoading}
             />
           </div>
-
-          {/* Email Subject */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Subject*</span>
@@ -149,8 +142,6 @@ export default function EmailSender() {
               required
             />
           </div>
-
-          {/* Email Image */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Header Image</span>
@@ -163,7 +154,6 @@ export default function EmailSender() {
               disabled={isLoading}
             />
           </div>
-          {/* Email Message */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Body Message*</span>
@@ -176,8 +166,6 @@ export default function EmailSender() {
               disabled={isLoading}
             />
           </div>
-
-          {/* Progress */}
           {isLoading && (
             <div className="space-y-2">
               <progress
@@ -189,8 +177,6 @@ export default function EmailSender() {
               </p>
             </div>
           )}
-
-          {/* Results */}
           {!isLoading && progress.total > 0 && (
             <div className="alert alert-info">
               <div>
@@ -219,9 +205,7 @@ export default function EmailSender() {
           {/* Submit Button */}
           <button
             onClick={handleUpload}
-            className={`btn w-full mt-4 ${
-              isLoading ? "loading" : ""
-            }`}
+            className={`btn w-full mt-4 ${isLoading ? "loading" : ""}`}
             disabled={isLoading}>
             {isLoading ? "Sending..." : "Send Emails"}
           </button>
